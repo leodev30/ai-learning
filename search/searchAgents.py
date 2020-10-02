@@ -325,9 +325,9 @@ class CornersProblem(search.SearchProblem):
             is the incremental cost of expanding to that successor
         """
         #in state, str(state)
-        successors = []
+        x, y = state[0]
         visitedCorners = state[1]
-        x,y = state[0]
+        successors = []
         for action in [Directions.NORTH, Directions.SOUTH, Directions.EAST, Directions.WEST]:
             # Add a successor state to the successor list if the action is legal
             # Here's a code snippet for figuring out whether a new position hits a wall:
@@ -338,20 +338,18 @@ class CornersProblem(search.SearchProblem):
 
             "*** YOUR CODE HERE ***"
             dx, dy = Actions.directionToVector(action)
-            nextx = int(x + dx)
-            nexty = int(x + dy)
+            nextx, nexty = int(x + dx), int(y + dy)
             hitsWall = self.walls[nextx][nexty]
             if not hitsWall:
                 successorVisitedCorners = list(visitedCorners)
-                nextNode = (nextx, nexty)
-                if nextNode in self.corners:
-                    if nextNode not in successorVisitedCorners:
-                        successorVisitedCorners.append(nextNode)
-                    successor = ((nextNode, successorVisitedCorners), action, 1)
-                    successors.append(successor)
-        
+                next_node = (nextx, nexty)
+                if next_node in self.corners:
+                    if next_node not in successorVisitedCorners:
+                        successorVisitedCorners.append(next_node)
+                successor = ((next_node, successorVisitedCorners), action, 1)
+                successors.append(successor)
 
-        self._expanded += 1 # DO NOT CHANGE
+        self._expanded += 1  # DO NOT CHANGE
         return successors
 
     def getCostOfActions(self, actions):
@@ -400,7 +398,7 @@ def cornersHeuristic(state, problem):
     currentPoint = toaDo
     while cornersLeftToVisit:
         heuristic_cost, corner = \
-            min([(util.mahattanDistance(currentPoint, corner), corner) for corner in cornersLeftToVisit])
+            min([(util.manhattanDistance(currentPoint, corner), corner) for corner in cornersLeftToVisit])
         cornersLeftToVisit.remove(corner)
         currentPoint = corner
         totalCost += heuristic_cost
@@ -500,14 +498,15 @@ def foodHeuristic(state, problem):
     position, foodGrid = state
     "*** YOUR CODE HERE ***"
     # return 0
+    return len(foodGrid.asList()) 
     foodToEat = foodGrid.asList()
     totalCost = 0
-    currentPoint = position
+    curPoint = position
     while foodToEat:
         heuristic_cost, food = \
-            min([(util.mahattanDistance(currentPoint, food), food) for food in foodToEat])
+            min([(util.manhattanDistance(curPoint, food), food) for food in foodToEat])
         foodToEat.remove(food)
-        currentPoint = food
+        curPoint = food
         totalCost += heuristic_cost
 
     return totalCost
@@ -541,7 +540,7 @@ class ClosestDotSearchAgent(SearchAgent):
         problem = AnyFoodSearchProblem(gameState)
 
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        
         #return search.ucs(problem)  
         return search.bfs(problem)
 
@@ -556,7 +555,11 @@ class AnyFoodSearchProblem(PositionSearchProblem):
     The class definition above, AnyFoodSearchProblem(PositionSearchProblem),
     inherits the methods of the PositionSearchProblem.
 
-    You can use this search problem to help you fill in the findPathToClosestDot
+    You can use this search problem to h
+
+
+
+    elp you fill in the findPathToClosestDot
     method.
     """
 
@@ -578,7 +581,7 @@ class AnyFoodSearchProblem(PositionSearchProblem):
         """
 
         "*** YOUR CODE HERE ***"
-        distance, goal = min([(util.mahattanDistance(state, goal), goal) for goal in self.food.asList()])
+        distance, goal = min([(util.manhattanDistance(state, goal), goal) for goal in self.food.asList()])
         if state == goal:
             return True
         else:
