@@ -103,10 +103,9 @@ def depthFirstSearch(problem):
             if problem.isGoalState(currentNode):
                 return actions
             for nextNode, action, cost in problem.getSuccessors(currentNode):
-                nextAction = action + [action]
+                nextAction = actions + [action]
                 queue.push((nextNode, nextAction))
 
-    util.raiseNotDefined()
 
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
@@ -114,7 +113,7 @@ def breadthFirstSearch(problem):
     startingNode = problem.getStartState()
     if problem.isGoalState(startingNode):
         return []
-
+        
     queue = util.Queue()
     visitedNodes = []
     queue.push((startingNode, []))
@@ -183,7 +182,7 @@ def aStarSearch(problem, heuristic=nullHeuristic):
                 nextAction = actions + [action]
                 newCostToNode = oldCost + cost
                 heuristicCost = newCostToNode + heuristic(nextNode, problem)
-                pQueue.push((nextNode, nextAction, newCostToNode), heuristicCost)
+                priorityQueue.push((nextNode, nextAction, newCostToNode), heuristicCost)
 
     util.raiseNotDefined()
 
