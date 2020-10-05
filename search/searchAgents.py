@@ -283,7 +283,7 @@ class CornersProblem(search.SearchProblem):
         self.corners = ((1,1), (1,top), (right, 1), (right, top))
         for corner in self.corners:
             if not startingGameState.hasFood(*corner):
-                print 'Warning: no food in corner ' + str(corner)
+                print 'Warning: No food in corner ' + str(corner)
         self._expanded = 0 # DO NOT CHANGE; Number of search nodes expanded
         # Please add any code here which you would like to use
         # in initializing the problem
@@ -541,8 +541,8 @@ class ClosestDotSearchAgent(SearchAgent):
 
         "*** YOUR CODE HERE ***"
         
-        #return search.ucs(problem)  
-        return search.bfs(problem)
+        return search.ucs(problem)  
+        # return search.bfs(problem)
 
 class AnyFoodSearchProblem(PositionSearchProblem):
     """
