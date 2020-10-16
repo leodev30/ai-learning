@@ -76,7 +76,7 @@ class ReflexAgent(Agent):
         "*** YOUR CODE HERE ***"
         # An thuc an va khi con ma den gan thi khong di
         newFood = successorGameState.getFood().asList()
-        nearestFood = float("inf")
+        nearestFood = float('inf')
         for food in newFood:
             nearestFood = min(nearestFood, manhattanDistance(newPos, food))
 
@@ -171,7 +171,7 @@ class AlphaBetaAgent(MultiAgentSearchAgent):
         """
         "*** YOUR CODE HERE ***"
         actions = gameState.getLegalActions(0)
-        alpha, beta = -float("inf"), float("inf")
+        alpha, beta = -float('inf'), float('inf')
         vals = []
         for action in actions:
           val = self.alphabetaSearch(gameState.generateSuccessor(0, action), 1, alpha, beta)
@@ -188,8 +188,8 @@ class AlphaBetaAgent(MultiAgentSearchAgent):
         if gameState.isWin() or gameState.isLose() or depth == self.depth:
           return self.evaluationFunction(gameState)
         actions = gameState.getLegalActions(agentIndex)
-        if agentIndex == 0: val = -float("inf")
-        else: val = float("inf")
+        if agentIndex == 0: val = -float('inf')
+        else: val = float('inf')
         for action in actions:
           successor = gameState.generateSuccessor(agentIndex, action)
           if agentIndex > 0:
@@ -240,21 +240,22 @@ def betterEvaluationFunction(currentGameState):
       DESCRIPTION: <write something here so we know what you did>
     """
     "*** YOUR CODE HERE ***"
-    lose, win = -float("inf"), float("inf")
-    if currentGameState.isWin():
-      return win
-    if currentGameState.isLose():
-      return lose 
+    """ 
+    Da test mot so thong so de ham danh gia duoc tot de chien thang 
+    co ban giong voi Q1 tuy nhien se co them mot so thong so
+    """
+    # kiem tra trang thai ket thuc
+    if currentGameState.isLose(): return - float('inf')
+    if currentGameState.isWin():  return float('inf')  
     foods = currentGameState.getFood()
     ghostStates = currentGameState.getGhostStates()
-    pacmanPosition = currentGameState.getPacmanPosition()
+    pacmanPostion = currentGameState.getPacmanPosition()
 
-    nearestFood = min(manhattanDistance(food, pacmanPosition) for food in foods.asList())
-    coverMe = sum([(manhattanDistance(ghost.getPosition(), pacmanPosition) < 3) for ghost in ghostStates])
-    scareMe = sum([(ghost.scaredTimer == 0) for ghost in getGhostStates])
+    nearestFood = min(manhattanDistance(food, pacmanPostion) for food in foods.asList())
+    coverMe = sum([(manhattanDistance(ghost.getPosition(), pacmanPostion) < 3) for ghost in ghostStates])
+    scareMe = sum([(ghost.scaredTimer == 0) for ghost in ghostStates])
 
-    return 10.0 * currentGameState.getScore() + 1.0 * coverMe + 1.0 / (scareMe * 0.01)
-
+    return currentGameState.getScore() + 1.0 / nearestFood + 1.0 * coverMe + 1.0 / (scareMe + 0.1)
 # Abbreviation
 better = betterEvaluationFunction
 
