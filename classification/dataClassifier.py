@@ -78,11 +78,6 @@ def enhancedFeatureExtractorDigit(datum):
     features =  basicFeatureExtractorDigit(datum)
 
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
-
-    return features
-
-
 
 def basicFeatureExtractorPacman(state):
     """
@@ -122,9 +117,25 @@ def enhancedPacmanFeatures(state, action):
     For each state, this function is called with each legal action.
     It should return a counter with { <feature name> : <feature value>, ... }
     """
-    features = util.Counter()
+    features =  util.Counter()
+
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    successor = state.generateSuccessor(0, action)
+    ghosts = successor.getGhostStates()
+    position = successor.getPacmanPosition()
+    foods = successor.getFood().asList()
+    capsules = successor.getCapsules()
+    current_capsules = state.getCapsules()
+
+    features["nearest_ghost"] = min([(util.manhattanDistance(ghost.getPosition(), position)) for ghost in ghosts])
+    features["num_ghost"] = sum([(util.manhattanDistance(ghost.getPosition(), position) < 3) for ghost in ghosts])
+    features["scared_ghost"] = sum([(ghost.scaredTimer > 0) for ghost in ghosts])
+    features['stop'] = (action == 'Stop')
+
+    if len(foods) > 0:
+        features["nearest_food"] = min([util.manhattanDistance(food, position) for food in foods])
+        
+
     return features
 
 
