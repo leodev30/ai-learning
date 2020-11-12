@@ -116,6 +116,13 @@ def enhancedPacmanFeatures(state, action):
     """
     For each state, this function is called with each legal action.
     It should return a counter with { <feature name> : <feature value>, ... }
+    
+    Thiết kế feature cho pacman
+    stopAgent: agent chỉ đứng yên
+    foodAgent: agent chỉ đi ăn mà không care xung quanh
+    suicideAgent: agent chỉ di chuyển về phía con ma gần nhất
+    contestAgent: một con agent thông minh tránh ma ăn các viên năng lượng và thức ăn
+
     """
     features =  util.Counter()
 
