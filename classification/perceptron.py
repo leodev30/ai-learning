@@ -50,12 +50,7 @@ class PerceptronClassifier:
         self.features = trainingData[0].keys() # could be useful later
         # DO NOT ZERO OUT YOUR WEIGHTS BEFORE STARTING TRAINING, OR
         # THE AUTOGRADER WILL LIKELY DEDUCT POINTS.
-        """
-        Implement thuật toán perceptron phân loại chữ số
-        So sánh feature vector của dữ liệu với feature vector của label và chọn ra cái giống nhất
-        Thực hiện duyệt nhiều lần và mỗi lần sẽ predict trên tập data train 
-        Sau đó sẽ thay đổi vector trọng số tùy thuộc vào predict đúng hay là sai như theo guide
-        """
+       
         for iteration in range(self.max_iterations):
             print "Starting iteration ", iteration, "..."
             for (X, y) in zip(trainingData, trainingLabels):
@@ -84,13 +79,7 @@ class PerceptronClassifier:
 
 
     def findHighWeightFeatures(self, label):
-        """
-        Return 100 features với trọng số cao nhất trong các label
-        Xem xem nó giống với list a hay list b và viết đáp số vào file answer.py
-        Duyệt 100 lần mỗi lần tìm ra argMax
-        Append argMax vào output và update lại trọng số 
-        (gán cho trọng số một giá trị thật nhỏ)
-        """
+        
         featuresWeights = []
 
         "*** YOUR CODE HERE ***"
