@@ -59,10 +59,6 @@ class MiraClassifier:
         the classify method works correctly. Also, recall that a
         datum is a counter from features to values for those features
         representing a vector of values.
-
-        Cho 1 tập C. Đánh giá độ chính xác cho từng C và chọn ra C có độ chính xác cao nhất
-        Thuật toán tương tự như perceptron nhưng có thêm một tham số là r
-        Implement thuật toán theo guide
         """
         "*** YOUR CODE HERE ***"
         weights = {}
