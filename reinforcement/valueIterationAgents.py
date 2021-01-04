@@ -70,8 +70,10 @@ class ValueIterationAgent(ValueEstimationAgent):
           value function stored in self.values.
         """
         "*** YOUR CODE HERE ***"
+        # trả về giá trị Q của cặp (state, action) được cung cấp bởi hàm giá trị được cho bởi self.values.
         qValue = 0
         for nextState, prob in self.mdp.getTransitionStatesAndProbs(state, action):
+            # tính qvalue 
             qValue += prob * (self.discount * self.oldValues[nextState] + self.mdp.getReward(state, action, nextState))
         return qValue
 
@@ -84,9 +86,12 @@ class ValueIterationAgent(ValueEstimationAgent):
           terminal state, you should return None.
         """
         "*** YOUR CODE HERE ***"
+        # tính toán hành động tốt nhất theo hàm giá trị được cung cấp bởi self.values.
         actions, maxValue, decision = self.mdp.getPossibleActions(state), -float('inf'), None
         for action in actions:
+            # tính giá trị qValue hành động tại từng (state, action)
             actionValue = self.computeQValueFromValues(state, action)
+            # nếu mà giá trị action lớn hơn giá trị gán max thì cập nhật lại max và đưa ra decision chính là action tại state đó
             if actionValue > maxValue:
                 maxValue = actionValue
                 decision = action
