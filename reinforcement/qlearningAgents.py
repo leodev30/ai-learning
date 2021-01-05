@@ -103,11 +103,15 @@ class QLearningAgent(ReinforcementAgent):
         legalActions = self.getLegalActions(state)
         action = None
         "*** YOUR CODE HERE ***"
+        #kiem tra dieu kien legal action
         if len(legalActions) == 0:
             return action
+        #su dung util.flipCoin(prob)  tra ve xac suat true la (prob) va false voi (1-prop)  
         if util.flipCoin(self.epsilon):
+          #chon mot cach ngau nhien khoi danh sach cac legal actions 
             action = random.choice(legalActions)
         else:
+            #tinh toan Qvalue cho action tai state  
             action = self.computeActionFromQValues(state)
         return action
 
